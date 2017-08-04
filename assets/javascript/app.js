@@ -12,13 +12,41 @@ $(document).ready(function(){
 
   // set variables and set up the questions object
   var qIndex = 0;
-  var qTotal = 3;
+  var qTotal = 20;
   var timer = 0;
   var intervalId;
   var buttonLock = 0;
   var right;
   var wrong;
   var ans;
+  var qObj = [];
+  var XHR = $.get("https://opentdb.com/api.php?amount=20&category=32&difficulty=easy&type=multiple")
+    .done(function(data) {
+      for (var x = 0; x < data.results.length; x++){
+        var correctIndex = Math.ceil(Math.random() * 4);
+        var op = [];
+        var qst = data.results[x].question;
+        var wrongarr = data.results[x].incorrect_answers;
+        for (var i = 1; i <= 4; i++) {
+          if (i === correctIndex) {
+            op[i] = data.results[x].correct_answer;
+          } else {
+            op[i] = wrongarr.pop()
+          }
+        }
+        qObj[x] = [];
+        qObj[x]["question"] = qst.replace(/&#?[a-z0-9]+;/g, "");
+        qObj[x]["opt1"] = op[1].replace(/&#?[a-z0-9]+;/g, "");
+        qObj[x]["opt2"] = op[2].replace(/&#?[a-z0-9]+;/g, "");
+        qObj[x]["opt3"] = op[3].replace(/&#?[a-z0-9]+;/g, "");
+        qObj[x]["opt4"] = op[4].replace(/&#?[a-z0-9]+;/g, "");
+        qObj[x]["ans"] = "opt" + correctIndex;
+        qObj[x]["right"] = "Correct!";
+        qObj[x]["wrong"] = "Wrong! The correct answer was " + data.results[x].correct_answer.replace(/&#?[a-z0-9]+;/g, "") + ".";
+        qObj[x]["gif"] = "none";
+      }
+    });
+  /*
   var qObj = {
     0: { "question": "Who?",
     "opt1": "Me.",
@@ -48,6 +76,7 @@ $(document).ready(function(){
     "wrong": "Wrong.  It always goes down in the DM",
     "gif": "none" }
   };
+  */
   var score = {
     "right": 0,
     "wrong": 0,
@@ -86,7 +115,7 @@ $(document).ready(function(){
     $("#cooldownscore").text(msg);
     $("#cooldown").show();
     $("#gifholder").hide();
-    timer = 20;
+    timer = 15;
     $("#timer").text(timer);
     intervalId = setTimeout(function() {
       if (qIndex >= qTotal) {
