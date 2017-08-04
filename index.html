@@ -1,10 +1,49 @@
 <html>
   <head>
-    <link rel="stylesheet" href="assets/css/style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
     <title>Trivia</title>
   </head>
   <body>
+    <div class="row">
+      <div class="col s10 m6 offset-s1 offset-m3">
+        <nav>
+          <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Trivia!</a>
+          </div>
+        </nav>
+        <div class="card">
+          <div class="card-content">
+            <i class="material-icons" id="timeron">alarm</i><i class="material-icons" id="timeroff">alarm_off</i><span><span id="timer">0</span> s.</span><span id="qheader" class="right"><i class="material-icons">chat_bubble_outline</i>Question <span id=qnum>0</span>/10.</span>
+            <div class="progress">
+              <div class="indeterminate"></div>
+            </div>
+            <p id="question">Question</p>
+          </div>
+          <div class="card-tabs">
+            <div class="collection">
+              <a href="#!" class="collection-item" id="opt1">1)</a>
+              <a href="#!" class="collection-item" id="opt2">2)</a>
+              <a href="#!" class="collection-item" id="opt3">3)</a>
+              <a href="#!" class="collection-item" id="opt4">4)</a>
+            </div>
+          </div>
+          <div id="cooldown">
+            <img id="gifholder" src="#"><BR>
+            <p id="cooldownscore" style="text-align: center">The next question will begin in 5 seconds.</p>
+          </div>
+        </div>
 
-    <script src="assets/javascript/app.js"></script>
+        <a class="waves-effect waves-light btn" id="start"><i class="material-icons left">timer</i>Start</a>
+        <a class="waves-effect waves-light btn" id="stop"><i class="material-icons left">timer_off</i>Stop!</a>
+      </div>
+    </div>
+  </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script src="./assets/javascript/app.js"></script>
   </body>
 </html>
